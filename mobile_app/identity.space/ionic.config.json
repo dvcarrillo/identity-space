@@ -1,0 +1,8 @@
+{
+  "name": "identity.space",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular",
+  "id": "11718b16"
+}
