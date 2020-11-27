@@ -1,12 +1,8 @@
 # identity.**space**
 *Generation of unique multimodal scapes from your own identity*
 
-<br>
-
 ## 🖥 Web Application
 *develop…*
-
-<br>
 
 ## 📱 Mobile Client
 The mobile application is built in Ionic 6 for iOS 12 or above. Please follow [the Ionic Docs on iOS Development](https://ionicframework.com/docs/developing/ios) to set up your environment and learn about the workflow. See more information about Ionic on their [official documentation](https://ionicframework.com/docs).
