@@ -2,7 +2,7 @@
 *Generation of unique multimodal scapes from your own identity*
 
 ## 🖥 Web Application
-*develop…*
+The web application is divided into a backend server that handles the NFC IDs using [Socket.io](https://socket.io/docs/v3/) and more specifically its [TypeScript example](https://github.com/socketio/socket.io/tree/master/examples/typescript) and a frontend client that displays a generative art piece based on the NFC cards (i.e. sockets) that are currently connected.
 
 ## 📱 Mobile Client
 The mobile application is built in Ionic 6 for iOS 12 or above. Please follow [the Ionic Docs on iOS Development](https://ionicframework.com/docs/developing/ios) to set up your environment and learn about the workflow. See more information about Ionic on their [official documentation](https://ionicframework.com/docs).
@@ -11,7 +11,3 @@ App coding should be carried out on the editor of your choice, but Xcode is nece
 ```
 $ ionic capacitor open ios
 ```
-
-<br>
-
-This repository is part of the KTH DT2140 HT20-1 Multimodal Interaction and Interfaces.
