@@ -1,0 +1,20 @@
+{
+  "name": "identity.space-backend",
+  "version": "1.0.0",
+  "description": "Express-based server for identity.space art installation",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "start:server": "ts-node server.ts",
+    "start:client": "ts-node client.ts"
+  },
+  "author": "Christoph Albert Johns",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "socket.io": "^3.0.3",
+    "socket.io-client": "^3.0.3",
+    "ts-node": "^9.0.0",
+    "typescript": "^4.1.2"
+  }
+}
