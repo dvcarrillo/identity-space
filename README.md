@@ -11,6 +11,10 @@ App coding should be carried out on the editor of your choice, but Xcode is nece
 ```
 $ ionic capacitor open ios
 ```
+If you make any changes do not forget to sync it with Xcode fist:
+```
+ionic capacitor copy ios
+```
 
 <br>
 
