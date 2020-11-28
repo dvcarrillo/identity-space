@@ -1,4 +1,6 @@
+import { HelpPage } from './../help/help.page';
 import { Component } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab1',
@@ -7,6 +9,15 @@ import { Component } from '@angular/core';
 })
 export class Tab1Page {
 
-  constructor() {}
+  constructor(public modalController: ModalController) { }
 
+
+  async helpButtonClicked() {
+    console.log('hej');
+
+    const modal = await this.modalController.create({
+      component: HelpPage
+    });
+    modal.present();
+  }
 }
