@@ -6,8 +6,8 @@
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
-    "start:server": "ts-node server.ts",
-    "start:client": "ts-node client.ts"
+    "start:server": "ts-node src/server.ts",
+    "start:client": "ts-node src/client.ts"
   },
   "author": "Christoph Albert Johns",
   "license": "GPL-3.0",
