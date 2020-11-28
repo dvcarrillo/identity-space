@@ -1,6 +1,10 @@
 import { Server, Socket } from "socket.io";
 
-const io = new Server(8080);
+const io = new Server(8080, {
+    cors: {
+        origin: "*"
+    }
+});
 
 io.on("connect", (socket: Socket) => {
     console.log(`connect ${socket.id}`);
