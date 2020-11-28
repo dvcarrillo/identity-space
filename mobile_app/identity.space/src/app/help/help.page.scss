@@ -1,0 +1,32 @@
+img {
+    margin: 10px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+a {
+    text-decoration: none;
+}
+
+.helpText {
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.helpText > p {
+    color: lightgray;
+}
+
+// .bottom {
+//     position: absolute;
+//     bottom: 20px;
+//     width: 100%;
+// }
+
+.image-foot {
+    color: grey;
+    font-size: 0.7rem;
+    text-align: center;
+    margin: 3px;
+}
