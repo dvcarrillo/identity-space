@@ -15,3 +15,7 @@ If you make any changes do not forget to **sync them with Xcode first**:
 ```
 & ionic capacitor copy ios
 ```
+
+<br>
+
+This repository is part of the KTH DT2140 HT20-1 Multimodal Interaction and Interfaces.
