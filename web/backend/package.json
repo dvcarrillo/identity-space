@@ -2,7 +2,7 @@
   "name": "identity.space-backend",
   "version": "1.0.0",
   "description": "Express-based server for identity.space art installation",
-  "main": "index.js",
+  "main": "dist/server.js",
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
