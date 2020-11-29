@@ -1,6 +1,7 @@
 import { HelpPage } from './../help/help.page';
 import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { NFC, Ndef } from '@ionic-native/nfc/ngx';
 
 @Component({
   selector: 'app-tab1',
@@ -9,12 +10,26 @@ import { ModalController } from '@ionic/angular';
 })
 export class Tab1Page {
 
-  constructor(public modalController: ModalController) { }
+  constructor(
+    private nfc: NFC, 
+    private ndef: Ndef,
+    public modalController: ModalController
+  ) { }
 
+  ionViewDidEnter() {
+    // this.readNFC();
+  }
+
+  async readNFC() {
+    try {
+      let tag = await this.nfc.scanNdef();
+      console.log(JSON.stringify(tag));
+    } catch (err) {
+      console.log('Error reading tag', err);
+    }
+  }
 
   async helpButtonClicked() {
-    console.log('hej');
-
     const modal = await this.modalController.create({
       component: HelpPage
     });
