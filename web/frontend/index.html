@@ -1,0 +1,27 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>identity.space</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="full-size-container">
+        <div id="app">
+            <p>The following NFC IDs are currently connected:</p>
+            <ul id="idList"></ul>
+        </div>
+    </div>
+
+    <!-- Template -->
+    <template id="nfcID">
+        <li></li>
+    </template>
+
+    <!-- JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.1/socket.io.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

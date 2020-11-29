@@ -1,11 +1,23 @@
 .bgContainer {
     display: flex;
     align-items: center;
-    height: 80vh;
+    height: 55vh;
     z-index: -1;
 }
 
 .bgContainer>svg {
     margin: 0 auto;
     display: block;
+}
+
+ion-content {
+    --overflow: hidden;
+}
+
+p {
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
 }
