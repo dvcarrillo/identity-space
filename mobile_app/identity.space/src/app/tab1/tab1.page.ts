@@ -1,3 +1,4 @@
+import { ConnectionService } from './../connection.service';
 import { HelpPage } from './../help/help.page';
 import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
@@ -13,6 +14,7 @@ export class Tab1Page {
   constructor(
     private nfc: NFC, 
     private ndef: Ndef,
+    private connectionService : ConnectionService,
     public modalController: ModalController
   ) { }
 
