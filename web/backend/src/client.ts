@@ -18,7 +18,10 @@ socket.on("disconnect", () => {
 setInterval(() => {
     const start = Date.now();
 
+    console.log("determining whether to send or remove");
     const willSend = Math.random() < 0.5; // random boolean
+    console.log(`determined to ${willSend ? "send" : "remove"}`);
+    
     if (willSend) {
         const nfcID = crypto.randomBytes(4).toString("hex").toUpperCase().match(/.{1,2}/g).join(":");
         console.log(`sending NFC ID: ${nfcID}`);
@@ -29,7 +32,12 @@ setInterval(() => {
             }
         });
     }
-    if (!willSend && nfcIDs.length > 0) {
+
+    if (!willSend) {
+        if (nfcIDs.length == 0) {
+            console.log("no nfcIDs to remove");
+            return;
+        }
         const nfcID = nfcIDs[nfcIDs.length - 1]; // last element from array
         console.log(`requesting remove of NFC ID: ${nfcID}`);
         socket.emit("remove nfcID", nfcID, (response) => {
