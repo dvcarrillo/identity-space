@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/dvcarrillo/Documents/KTH/Cursos/DT2140 Multimodal Interaction and Interfaces/Group Project/identity-space/mobile_app/identity.space/ios/App/identity.space.xcodeproj">
+      location = "group:App.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">

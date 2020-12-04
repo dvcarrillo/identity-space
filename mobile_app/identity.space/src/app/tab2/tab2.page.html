@@ -13,5 +13,38 @@
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+  <ion-list lines="full" class="ion-no-margin">
+    <ion-list-header lines="full">
+      <ion-label>
+        Web server
+      </ion-label>
+    </ion-list-header>
+    <ion-item>
+      <ion-label>Server address</ion-label>
+      <ion-input placeholder="192.168.1.1" [(ngModel)]="serverAddress"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Server port</ion-label>
+      <ion-input placeholder="8080" [(ngModel)]="serverPort"></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <ion-list lines="full" class="ion-no-margin">
+    <ion-list-header lines="full">
+      <ion-label>
+        Connection check
+      </ion-label>
+    </ion-list-header>
+    <ion-item>
+      <ion-label>Test string</ion-label>
+      <ion-input placeholder="abcde012345" [(ngModel)]="testSendingString"></ion-input>
+      <ion-button expand="block" (click)="sendButtonClicked()">Send</ion-button>
+    </ion-item>
+    <ion-item *ngIf="testSent">
+      <ion-label position="stacked">Response</ion-label>
+      <ion-textarea readonly [(ngModel)]="testResponse"></ion-textarea>
+    </ion-item>
+  </ion-list>
+
+  <!-- <app-explore-container name="Tab 2 page"></app-explore-container> -->
 </ion-content>

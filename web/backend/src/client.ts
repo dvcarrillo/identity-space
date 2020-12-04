@@ -14,22 +14,40 @@ socket.on("disconnect", () => {
     console.log(`disconnect`);
 });
 
+const generateNFCID = () => crypto.randomBytes(4).toString("hex").toUpperCase().match(/.{1,2}/g).join(":");
+const sendRandomNFCID = () => {
+    const nfcID = generateNFCID();
+    console.log(`sending NFC ID: ${nfcID}`);
+    socket.emit("nfcID", nfcID, (response) => {
+        if (response.status == "ok") {
+            console.log(`acknowledged NFC ID: ${response.acknowledgedNFCID}`);
+            nfcIDs.push(nfcID);
+        }
+    });
+}
+
+// Send some NFC IDs
+for (let i=0; i<4; i++) {
+    setTimeout(sendRandomNFCID, 1000);
+}
+
 // Send or remove NFC ID every 5 seconds
 setInterval(() => {
     const start = Date.now();
 
-    const willSend = Math.random() < 0.5; // random boolean
+    console.log("determining whether to send or remove");
+    const willSend = Math.random() < 0.75; // random boolean (slightly skewed)
+    console.log(`determined to ${willSend ? "send" : "remove"}`);
+    
     if (willSend) {
-        const nfcID = crypto.randomBytes(4).toString("hex").toUpperCase().match(/.{1,2}/g).join(":");
-        console.log(`sending NFC ID: ${nfcID}`);
-        socket.emit("nfcID", nfcID, (response) => {
-            if (response.status == "ok") {
-                console.log(`acknowledged NFC ID: ${response.acknowledgedNFCID}`);
-                nfcIDs.push(nfcID);
-            }
-        });
+        sendRandomNFCID();
     }
-    if (!willSend && nfcIDs.length > 0) {
+
+    if (!willSend) {
+        if (nfcIDs.length == 0) {
+            console.log("no nfcIDs to remove");
+            return;
+        }
         const nfcID = nfcIDs[nfcIDs.length - 1]; // last element from array
         console.log(`requesting remove of NFC ID: ${nfcID}`);
         socket.emit("remove nfcID", nfcID, (response) => {
@@ -41,4 +59,4 @@ setInterval(() => {
     }
 
     
-}, 5000);
+}, 3000);
