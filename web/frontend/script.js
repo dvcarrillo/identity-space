@@ -13,10 +13,10 @@ socket.on("disconnect", () => {
 socket.on("nfcIDs", (nfcIDs) => {
     console.log(`received NFC IDs: ${nfcIDs}`);
     ulNFCIDs.innerHTML = "";
-    nfcIDs.map(nfcID => {
+    nfcIDs.map(nfcData => {
         const clone = template.content.cloneNode(true);
         const li = clone.querySelector("li");
-        li.textContent = nfcID;
+        li.textContent = nfcData.nfcID;
         ulNFCIDs.appendChild(clone);
     });
 })
