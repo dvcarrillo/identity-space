@@ -40,7 +40,7 @@ io.on("connect", (socket: Socket) => {
 
     socket.on("remove nfcID", (nfcID, callback) => {
         console.log(`received remove for NFC ID: ${nfcID}`);
-        nfcIDs = filterOutCreatedBy(nfcIDs, socket.id);
+        nfcIDs = nfcIDs.filter(nfcData => nfcData.nfcID != nfcID);
         console.log("broadcasting NFC IDs");
         socket.broadcast.emit("nfcIDs", nfcIDs);
         console.log("acknowledging remove for NFC ID");
@@ -53,15 +53,11 @@ io.on("connect", (socket: Socket) => {
     socket.on("disconnect", () => {
         console.log(`disconnect ${socket.id}`);
         console.log(`removing all NFC IDs from socket ID: ${socket.id}`);
-        nfcIDs = filterOutCreatedBy(nfcIDs, socket.id);
+        nfcIDs = nfcIDs.filter(nfcData => nfcData.createdBy != socket.id);
         console.log("broadcasting NFC IDs");
         socket.broadcast.emit("nfcIDs", nfcIDs);
     });
 });
-
-const filterOutCreatedBy = (array, creator) => {
-    return array.filter(el => el.createdBy != creator);
-};
 
 interface NFCData {
     nfcID: string;
