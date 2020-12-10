@@ -37,6 +37,14 @@ io.on("connect", (socket: Socket) => {
             acknowledgedNFCID: nfcID,
         });
     });
+    
+    socket.on("appTest", (message, callback) => {
+        console.log(`received test message from socket ID ${socket.id}: ${message}`);
+        callback({
+            status: "ok",
+            acknowledgedMessage: message,
+        });
+    });
 
     socket.on("remove nfcID", (nfcID, callback) => {
         console.log(`received remove for NFC ID: ${nfcID}`);

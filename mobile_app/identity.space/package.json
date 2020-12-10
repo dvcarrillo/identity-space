@@ -28,6 +28,7 @@
     "@ionic/angular": "^5.0.0",
     "phonegap-nfc": "^1.2.0",
     "rxjs": "~6.5.5",
+    "socket.io-client": "^3.0.4",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.3"
   },

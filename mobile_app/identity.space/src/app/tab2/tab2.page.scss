@@ -1,0 +1,11 @@
+ion-radio-group {
+    width: 100%;
+}
+
+ion-button {
+    margin: 0;
+}
+
+.radio-group-item:last-child {
+    --border-width: 0;
+}
