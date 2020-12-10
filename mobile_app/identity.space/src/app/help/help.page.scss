@@ -14,15 +14,11 @@ a {
     margin-bottom: 20px;
 }
 
-.helpText > p {
-    color: lightgray;
+.bottom {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
 }
-
-// .bottom {
-//     position: absolute;
-//     bottom: 20px;
-//     width: 100%;
-// }
 
 .image-foot {
     color: grey;
