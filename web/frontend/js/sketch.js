@@ -5,6 +5,15 @@ let rings = [];
 
 function setup () {
   createCanvas(windowWidth, windowHeight);
+
+  button = createButton('Start audio');
+  button.position(0, 0);
+  button.mousePressed(startAudioAndHideButton);
+}
+
+function startAudioAndHideButton() {
+  Tone.start();
+  button.hide();
 }
 
 function windowResized () {
@@ -49,7 +58,7 @@ function createRings() {
   rings = [];
   const count = window.currentNFCIDs.length;
   for (i = 0; i < count; i++) {
-    const { parameters } = window.currentNFCIDs[i]; // expected format, e.g. FE:B7:2D:4E
+    const { parameters } = window.currentNFCIDs[i]; // number array with expected length: 4
     const diameter = ((i + 1) / count);
     const arcLength = PI * (parameters[0] * 2 / 255 + 0.05); // float between PI * 0.05 and PI * 2.05
     const arcAngle = PI * (parameters[0] * 4 / 255 - 2); // float between -PI * 2 and PI * 2

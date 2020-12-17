@@ -18,6 +18,9 @@ window.setCurrentNFCIDs = (newNFCIDs) => {
         return { ...nfcIDData, parameters};
     })
     window.currentNFCIDs = currentNFCIDs;
+    // P5.js
     createRings();
     redraw();
+    // Tone.js
+    createSounds();
 }
