@@ -49,10 +49,7 @@ function createRings() {
   rings = [];
   const count = window.currentNFCIDs.length;
   for (i = 0; i < count; i++) {
-    const { nfcID } = window.currentNFCIDs[i]; // expected format, e.g. FE:B7:2D:4E
-    const parameterStrings = nfcID.split(':'); // expected length = 4
-    // parse each as hex to get int, expected range: 0 to 255
-    const parameters = parameterStrings.map(parameterString => parseInt(parameterString, 16));
+    const { parameters } = window.currentNFCIDs[i]; // expected format, e.g. FE:B7:2D:4E
     const diameter = ((i + 1) / count);
     const arcLength = PI * (parameters[0] * 2 / 255 + 0.05); // float between PI * 0.05 and PI * 2.05
     const arcAngle = PI * (parameters[0] * 4 / 255 - 2); // float between -PI * 2 and PI * 2
