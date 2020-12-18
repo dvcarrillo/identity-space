@@ -14,7 +14,7 @@ socket.on("disconnect", () => {
     console.log(`disconnect`);
 });
 
-const generateNFCID = () => crypto.randomBytes(4).toString("hex").toUpperCase().match(/.{1,2}/g).join(":");
+const generateNFCID = () => crypto.randomBytes(4).toString("hex").toUpperCase().match(/.{1,2}/g).join(":"); // expected format, e.g. FE:B7:2D:4E
 const sendRandomNFCID = () => {
     const nfcID = generateNFCID();
     console.log(`sending NFC ID: ${nfcID}`);
@@ -28,10 +28,10 @@ const sendRandomNFCID = () => {
 
 // Send some NFC IDs
 for (let i=0; i<4; i++) {
-    setTimeout(sendRandomNFCID, 1000);
+    setTimeout(sendRandomNFCID, i*2000);
 }
 
-// Send or remove NFC ID every 5 seconds
+// Send or remove NFC ID every couple seconds
 setInterval(() => {
     const start = Date.now();
 
@@ -59,4 +59,4 @@ setInterval(() => {
     }
 
     
-}, 3000);
+}, 10000);
