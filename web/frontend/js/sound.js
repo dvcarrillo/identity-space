@@ -25,6 +25,11 @@ function createSounds() {
         const partials = parameters.map(parameter => parameter / 255);
 
         const synthOptions = {
+            envelope: {
+                decay: 0.8,
+                decayCurve: "exponential",
+                release: 30,
+            },
             oscillator: {
                 partialCount: 4,
                 partials,
@@ -33,16 +38,16 @@ function createSounds() {
             volume: -18,
         };
 
-        const pingPong = new Tone.PingPongDelay("4n", 0.2).toDestination();
-        const synth = new Tone.Synth(synthOptions).connect(pingPong);
+        const synth = new Tone.Synth(synthOptions).toDestination();
     
         const note = scale[Math.round((scale.length - 1) * parameters[0] / 255 )];
         const octave = Math.round((octaves.max - octaves.min) * parameters[1] / 255 + octaves.min);
         const noteOctave = `${note}${octave}`;
         const interval = Math.abs(parameters[0] * 2 / 255 - 1) * (intervals.max - intervals.min) + intervals.min;
+        const delay = Math.abs(parameters[1] * 2 / 255 - 1) * 10;
     
         const loop = new Tone.Loop(time => {
             synth.triggerAttackRelease(noteOctave, "4n", time);
-        }, interval).start(i);
+        }, interval).start(delay);
     }
 }
