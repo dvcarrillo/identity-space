@@ -15,13 +15,8 @@ async function togglePlay() {
   await Tone.start();
   console.log("context started");
 
-  if (Tone.Transport.state !== "started" && Tone.Transport.state !== "running") {
-    Tone.Transport.start();
-    console.log("transport started");
-  } else {
-    Tone.Transport.stop();
-    console.log("transport stopped");
-  }
+  Tone.Transport.toggle();
+  console.log(`transport ${Tone.Transport.state}`);
 }
 
 function windowResized () {
