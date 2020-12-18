@@ -13,11 +13,28 @@ const intervals = {
 };
 
 function createSounds() {
-    const pingPong = new Tone.PingPongDelay("4n", 0.2).toDestination();
-    const synth = new Tone.PolySynth(Tone.Synth).connect(pingPong).toDestination();
-    synth.volume.value = -18;
+    if (Tone.context.state !== "running") {
+        return;
+    }
+
+    Tone.Transport.cancel();
+
     for (i=0; i<window.currentNFCIDs.length; i++) {
-        const { parameters } = window.currentNFCIDs[i]; // number array with expected length: 4
+        const { parameters } = window.currentNFCIDs[window.currentNFCIDs.length - 1 - i]; // number array with expected length: 4
+
+        const partials = parameters.map(parameter => parameter / 255);
+
+        const synthOptions = {
+            oscillator: {
+                partialCount: 4,
+                partials,
+                type: "amcustom",
+            },
+            volume: -18,
+        };
+
+        const pingPong = new Tone.PingPongDelay("4n", 0.2).toDestination();
+        const synth = new Tone.Synth(synthOptions).connect(pingPong);
     
         const note = scale[Math.round((scale.length - 1) * parameters[0] / 255 )];
         const octave = Math.round((octaves.max - octaves.min) * parameters[1] / 255 + octaves.min);
@@ -28,6 +45,4 @@ function createSounds() {
             synth.triggerAttackRelease(noteOctave, "4n", time);
         }, interval).start(i);
     }
-
-    Tone.Transport.start()
 }

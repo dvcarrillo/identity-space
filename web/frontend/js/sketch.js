@@ -6,14 +6,22 @@ let rings = [];
 function setup () {
   createCanvas(windowWidth, windowHeight);
 
-  button = createButton('Start audio');
+  button = createButton('Play/Pause');
   button.position(0, 0);
-  button.mousePressed(startAudioAndHideButton);
+  button.mousePressed(togglePlay);
 }
 
-function startAudioAndHideButton() {
-  Tone.start();
-  button.hide();
+async function togglePlay() {
+  await Tone.start();
+  console.log("context started");
+
+  if (Tone.Transport.state !== "started" && Tone.Transport.state !== "running") {
+    Tone.Transport.start();
+    console.log("transport started");
+  } else {
+    Tone.Transport.stop();
+    console.log("transport stopped");
+  }
 }
 
 function windowResized () {
