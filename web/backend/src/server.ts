@@ -10,26 +10,26 @@ const io = new Server(PORT, {
 
 console.log(`Listening on port ${PORT}`);
 
-let nfcIDs: NFCData[] = [];
+let tags: Tag[] = [];
 
 io.on("connect", (socket: Socket) => {
     console.log(`connect ${socket.id}`);
 
-    console.log(`emitting nfcIDs ${nfcIDs} to socketID ${socket.id}`);
-    socket.emit("nfcIDs", nfcIDs);
+    console.log(`emitting tags ${tags} to socketID ${socket.id}`);
+    socket.emit("tags", tags);
 
     socket.on("nfcID", (nfcID, callback) => {
         console.log(`received NFC ID: ${nfcID}`);
-        if (!nfcIDs.some(nfcData => nfcData.nfcID == nfcID)) { // if array does not contain nfcID
-            const nfcData: NFCData = {
+        if (!tags.some(tag => tag.nfcID == nfcID)) { // if array does not contain nfcID
+            const tag: Tag = {
                 nfcID,
                 createdBy: socket.id,
                 createdAt: new Date(),
             }
-            nfcIDs.push(nfcData);
-            nfcIDs.sort((firstEl, secondEl) => firstEl.createdAt.getTime() - secondEl.createdAt.getTime()); // sort ascending by createdAt
-            console.log("broadcasting NFC IDs");
-            socket.broadcast.emit("nfcIDs", nfcIDs);
+            tags.push(tag);
+            tags.sort((firstEl, secondEl) => firstEl.createdAt.getTime() - secondEl.createdAt.getTime()); // sort ascending by createdAt
+            console.log("broadcasting tags");
+            socket.broadcast.emit("tags", tags);
         }
         console.log("acknowledging NFC ID");
         callback({
@@ -48,9 +48,9 @@ io.on("connect", (socket: Socket) => {
 
     socket.on("remove nfcID", (nfcID, callback) => {
         console.log(`received remove for NFC ID: ${nfcID}`);
-        nfcIDs = nfcIDs.filter(nfcData => nfcData.nfcID != nfcID);
-        console.log("broadcasting NFC IDs");
-        socket.broadcast.emit("nfcIDs", nfcIDs);
+        tags = tags.filter(tag => tag.nfcID != nfcID);
+        console.log("broadcasting tags");
+        socket.broadcast.emit("tags", tags);
         console.log("acknowledging remove for NFC ID");
         callback({
             status: "ok",
@@ -61,13 +61,13 @@ io.on("connect", (socket: Socket) => {
     socket.on("disconnect", () => {
         console.log(`disconnect ${socket.id}`);
         console.log(`removing all NFC IDs from socket ID: ${socket.id}`);
-        nfcIDs = nfcIDs.filter(nfcData => nfcData.createdBy != socket.id);
-        console.log("broadcasting NFC IDs");
-        socket.broadcast.emit("nfcIDs", nfcIDs);
+        tags = tags.filter(tag => tag.createdBy != socket.id);
+        console.log("broadcasting tags");
+        socket.broadcast.emit("tags", tags);
     });
 });
 
-interface NFCData {
+interface Tag {
     nfcID: string;
     createdBy: string;
     createdAt: Date;
