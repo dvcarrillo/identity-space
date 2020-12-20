@@ -10,8 +10,20 @@ socket.on("disconnect", () => {
     console.log(`disconnect`);
 });
 
-socket.on("nfcIDs", (nfcIDs) => {
-    console.log("received NFC IDs");
-    console.log({nfcIDs});
-    window.setCurrentNFCIDs(nfcIDs);
+socket.on("tags", (tags) => {
+    console.log("received tags");
+    console.log({tags});
+    window.setCurrentTags(tags);
+});
+
+socket.on("add tag", (tag) => {
+    console.log("received add tag");
+    console.log({tag});
+    window.addTag(tag);
+})
+
+socket.on("remove tag", (tag) => {
+    console.log("received remove tag");
+    console.log({tag});
+    window.removeTag(tag);
 })

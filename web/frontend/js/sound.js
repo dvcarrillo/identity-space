@@ -19,8 +19,8 @@ function createSounds() {
 
     Tone.Transport.cancel();
 
-    for (i=0; i<window.currentNFCIDs.length; i++) {
-        const { parameters } = window.currentNFCIDs[window.currentNFCIDs.length - 1 - i]; // number array with expected length: 4
+    for (i=0; i<window.currentTags.length; i++) {
+        const { parameters } = window.currentTags[window.currentTags.length - 1 - i]; // number array with expected length: 4
 
         const partials = parameters.map(parameter => parameter / 255);
 
