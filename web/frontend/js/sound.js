@@ -19,7 +19,7 @@ function createSounds() {
 
     for (i=0; i<window.currentTags.length; i++) {
         const currentTag = window.currentTags[window.currentTags.length - 1 - i];
-        const { parameters } = currentTag; // number array with expected length: 4
+        const { nfcID, parameters } = currentTag; // number array with expected length: 4
 
         const partials = parameters.map(parameter => parameter / 255); // each partial is float from 0.0 to 1.0
 
@@ -38,6 +38,7 @@ function createSounds() {
         };
 
         const synth = new Tone.Synth(synthOptions).toDestination();
+        synth.name = `${nfcID}__Synth`;
     
         const note = scale[Math.round((scale.length - 1) * parameters[0] / 255 )];
         const octave = Math.round((octaves.max - octaves.min) * parameters[1] / 255 + octaves.min);
