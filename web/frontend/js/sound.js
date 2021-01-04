@@ -17,12 +17,11 @@ function createSounds() {
         return;
     }
 
-    Tone.Transport.cancel();
-
     for (i=0; i<window.currentTags.length; i++) {
-        const { parameters } = window.currentTags[window.currentTags.length - 1 - i]; // number array with expected length: 4
+        const currentTag = window.currentTags[window.currentTags.length - 1 - i];
+        const { parameters } = currentTag; // number array with expected length: 4
 
-        const partials = parameters.map(parameter => parameter / 255);
+        const partials = parameters.map(parameter => parameter / 255); // each partial is float from 0.0 to 1.0
 
         const synthOptions = {
             envelope: {
@@ -43,11 +42,18 @@ function createSounds() {
         const note = scale[Math.round((scale.length - 1) * parameters[0] / 255 )];
         const octave = Math.round((octaves.max - octaves.min) * parameters[1] / 255 + octaves.min);
         const noteOctave = `${note}${octave}`;
-        const interval = Math.abs(parameters[0] * 2 / 255 - 1) * (intervals.max - intervals.min) + intervals.min;
-        const delay = Math.abs(parameters[1] * 2 / 255 - 1) * 10;
-    
-        const loop = new Tone.Loop(time => {
-            synth.triggerAttackRelease(noteOctave, "4n", time);
-        }, interval).start(delay);
+
+        const sonification = {
+            synthOptions,
+            synth,
+            note,
+            octave,
+            noteOctave,
+        };
+
+        window.currentTags[window.currentTags.length - 1 - i] = {
+            ...currentTag,
+            sonification,
+        };    
     }
 }
