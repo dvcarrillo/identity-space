@@ -6,11 +6,10 @@ window.setCurrentTags = (newTags) => {
         return { ...tag, parameters};
     })
     window.currentTags = currentTags;
-    // P5.js
-    createRings();
-    redraw();
     // Tone.js
     createSounds();
+    // P5.js
+    createRings();
 };
 
 window.addTag = (newTag) => {
