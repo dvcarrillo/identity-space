@@ -23,6 +23,7 @@ function windowResized () {
   resizeCanvas(windowWidth, windowHeight);
 }
 
+// gets called in an infinite loop once every frame
 function draw () {
   background(0);
 
@@ -44,7 +45,9 @@ function draw () {
       spinSpeed,
       hsb
     } = rings[i];
-    const spin = millis() / 1000 * spinSpeed;
+    // millis() returns number of milliseconds since starting the sketch
+    const secondsSinceStarting = millis() / 1000;
+    const spin = secondsSinceStarting * spinSpeed;
     stroke(hsb.hue, hsb.saturation, hsb.brightness);
     arc(
       width / 2,
