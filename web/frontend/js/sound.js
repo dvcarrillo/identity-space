@@ -7,10 +7,6 @@ const octaves = {
     min: 2,
     max: 6,
 };
-const intervals = {
-    min: 3,
-    max: 10,
-};
 
 function createSounds() {
     if (Tone.context.state !== "running") {
