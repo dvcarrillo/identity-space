@@ -52,7 +52,6 @@ function draw () {
       spinSpeed,
       hsb,
       interval,
-      delay,
     } = visualisation;
     const hasSonification = currentTag.hasOwnProperty('sonification');
     let synth;
@@ -69,8 +68,8 @@ function draw () {
       saturation,
     } = hsb;
     // Shine for 10 frames and trigger sound every interval
-    const modulo = (frameCount - delay) % interval;
-    if (frameCount > delay && modulo < 15) {
+    const modulo = frameCount % interval;
+    if (frameCount > 0 && modulo < 15) {
       brightness = 100 - (100 - hsb.brightness) * modulo / 15; // soft release
       saturation = 100;
       if (hasSonification && shouldPlay && modulo === 0) {
@@ -104,7 +103,6 @@ function createRings() {
       brightness: floor(parameters[3] * (90 - 70) / 255 + 70), // int between 70 and 90
     };
     const interval = Math.floor(parameters[0] / 255 * (300 - 90) + 90); // int between 90 and 300
-    const delay = Math.floor(parameters[1] / 255 * 300); // int between 0 and 300
     const visualisation = {
       spinSpeed,
       diameter,
@@ -112,7 +110,6 @@ function createRings() {
       arcAngle,
       hsb,
       interval,
-      delay,
     };
     window.currentTags[i] = {
       ...currentTag,
