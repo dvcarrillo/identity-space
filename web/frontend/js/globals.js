@@ -3,7 +3,14 @@ window.currentTags = [];
 window.setCurrentTags = (newTags) => {
     const currentTags = newTags.map(tag => {
         const parameters = getParametersFromTag(tag);
-        return { ...tag, parameters};
+        const tagData = {
+            ...tag,
+            parameters,
+            shouldBeActive: false,
+            currentlyActive: false,
+            lastActive: 0,
+        };
+        return tagData;
     })
     window.currentTags = currentTags;
     // Tone.js
@@ -16,12 +23,23 @@ window.addTag = (newTag) => {
     const tag = {
         ...tag,
         parameters: getParametersFromTag(newTag),
+        shouldPlaySound: false,
     };
     window.currentTags.push(tag);
 };
 
 window.removeTag = (tagToRemove) => {
     window.currentTags = window.currentTags.filter(tag => tag.nfcID !== tagToRemove.nfcID);
+};
+
+window.setActive = (tagToSetActive) => {
+    const tagIndex = window.currentTags.findIndex(tag => tag.nfcID === tagToSetActive.nfcID);
+    window.currentTags[tagIndex].shouldBeActive = true;
+};
+
+window.setInactive = (tagToSetInactive) => {
+    const tagIndex = window.currentTags.findIndex(tag => tag.nfcID === tagToSetInactive.nfcID);
+    window.currentTags[tagIndex].shouldBeActive = false;
 };
 
 const getParametersFromTag = (tag) => {

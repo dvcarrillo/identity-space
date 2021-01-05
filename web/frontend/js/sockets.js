@@ -27,3 +27,15 @@ socket.on("remove tag", (tag) => {
     console.log({tag});
     window.removeTag(tag);
 })
+
+socket.on("setActive tag", (tag) => {
+    console.log("received setActive tag");
+    console.log({tag});
+    window.setActive(tag);
+})
+
+socket.on("setInactive tag", (tag) => {
+    console.log("received setInactive tag");
+    console.log({tag});
+    window.setInactive(tag);
+})
