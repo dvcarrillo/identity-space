@@ -58,6 +58,30 @@ io.on("connect", (socket: Socket) => {
         });
     });
 
+    socket.on("setActive nfcID", (nfcID, callback) => {
+        console.log(`received setActive for NFC ID: ${nfcID}`);
+        const tag = tags.find(tag => tag.nfcID === nfcID);
+        console.log("broadcasting setActive for tag");
+        socket.broadcast.emit("setActive tag", tag);
+        console.log("acknowledging setActive for NFC ID");
+        callback({
+            status: "ok",
+            acknowledgedNFCID: nfcID,
+        });
+    });
+
+    socket.on("setInactive nfcID", (nfcID, callback) => {
+        console.log(`received setInactive for NFC ID: ${nfcID}`);
+        const tag = tags.find(tag => tag.nfcID === nfcID);
+        console.log("broadcasting setInactive for tag");
+        socket.broadcast.emit("setInactive tag", tag);
+        console.log("acknowledging setInactive for NFC ID");
+        callback({
+            status: "ok",
+            acknowledgedNFCID: nfcID,
+        });
+    });
+
     socket.on("disconnect", () => {
         console.log(`disconnect ${socket.id}`);
         console.log(`removing all NFC IDs from socket ID: ${socket.id}`);
