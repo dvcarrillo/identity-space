@@ -17,16 +17,18 @@ export class NfcReadPage implements OnInit {
   toolbarTitle = 'Connection error';
   toolbarButtonText = 'Close';
 
-  constructor(public nfcReadPage: ModalController) {
-
-  }
+  constructor(
+    public nfcReadPage: ModalController,
+    private connectionService: ConnectionService
+  ) {}
 
   ngOnInit() {
-    this.toolbarTitle = this.connectionStatus? 'Connected' : 'Connection error';
-    this.toolbarButtonText = this.connectionStatus? 'Log out' : 'Close';
+    this.toolbarTitle = this.connectionStatus ? 'Connected' : 'Connection error';
+    this.toolbarButtonText = this.connectionStatus ? 'Log out' : 'Close';
   }
 
   dismiss() {
+    this.connectionService.disconnect();
     this.nfcReadPage.dismiss();
   }
 
