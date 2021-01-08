@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { NFC, Ndef } from '@ionic-native/nfc/ngx';
 import { LoadingController } from '@ionic/angular';
-
+import * as CryptoJS from 'crypto-js';
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
@@ -45,15 +45,6 @@ export class Tab1Page {
     modal.present();
   }
 
-  async readNFC() {
-    try {
-      let tag = await this.nfc.scanNdef();
-      console.log(JSON.stringify(tag));
-    } catch (err) {
-      console.log('Error reading tag', err);
-    }
-  }
-
   async simulateNFCScan() {
     this.showLoading(1800);
 
@@ -63,7 +54,7 @@ export class Tab1Page {
 
     setTimeout(() => {
       if (this.connectionService.isSocketConnected()) {
-        this.connectionService.sendNfcString("1212121");
+        this.connectionService.sendNfcString(this.generateExampleNFCID());
         isConnected = true;
         this.showNFCReadModal(isConnected, address);
       }
@@ -79,5 +70,20 @@ export class Tab1Page {
       component: HelpPage
     });
     modal.present();
+  }
+
+  async readNFC() {
+    try {
+      let tag = await this.nfc.scanNdef();
+      console.log(JSON.stringify(tag));
+    } catch (err) {
+      console.log('Error reading tag', err);
+    }
+  }
+
+  generateExampleNFCID():string {
+    return "XX:XX:XX:XX".replace(/X/g, function() {
+      return "0123456789ABCDEF".charAt(Math.floor(Math.random() * 16))
+    });
   }
 }
