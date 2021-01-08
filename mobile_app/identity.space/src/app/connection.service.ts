@@ -45,4 +45,8 @@ export class ConnectionService implements OnInit {
       return false;
     }
   }
+
+  public disconnect() {
+    this.socket.disconnect();
+  }
 }
