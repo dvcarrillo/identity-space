@@ -34,12 +34,13 @@ export class Tab1Page {
     await loading.present();
   }
 
-  async showNFCReadModal(isConnected: boolean, address: string) {
+  async showNFCReadModal(isConnected: boolean, address: string, nfcString: string) {
     const modal = await this.modalController.create({
       component: NfcReadPage,
       componentProps: {
         'connectionStatus': isConnected,
-        'address': address
+        'address': address,
+        'nfcString': nfcString
       }
     });
     modal.present();
@@ -50,17 +51,18 @@ export class Tab1Page {
 
     let isConnected = false;
     let address = `${this.connectionService.serverAddress}:${this.connectionService.serverPort}`;
+    let nfcString = this.generateExampleNFCID();
     this.connectionService.connect();
 
     setTimeout(() => {
       if (this.connectionService.isSocketConnected()) {
-        this.connectionService.sendNfcString(this.generateExampleNFCID());
+        this.connectionService.sendNfcString(nfcString);
         isConnected = true;
-        this.showNFCReadModal(isConnected, address);
+        this.showNFCReadModal(isConnected, address, nfcString);
       }
       else {
         isConnected = false;
-        this.showNFCReadModal(isConnected, address);
+        this.showNFCReadModal(isConnected, address, nfcString);
       }
     }, 2000);
   }

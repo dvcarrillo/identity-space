@@ -37,6 +37,18 @@ export class ConnectionService implements OnInit {
     });
   }
 
+  public setActiveNfcID(nfcString: string) {
+    this.socket.emit('setActive nfcID', nfcString, (data) => {
+      console.log('Received from socket - setActive nfcID:', data);
+    });
+  }
+
+  public setInactiveNfcID(nfcString: string) {
+    this.socket.emit('setInactive nfcID', nfcString, (data) => {
+      console.log('Received from socket - setInactive nfcID:', data);
+    });
+  }
+
   public isSocketConnected(): boolean {
     if ((this.socket != undefined) && (this.socket.connected == true)) {
       return true;
