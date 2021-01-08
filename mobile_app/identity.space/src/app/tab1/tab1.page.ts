@@ -46,7 +46,7 @@ export class Tab1Page {
   async simulateNFCScan() {
     this.showLoading(2000);
 
-    let isConnected = false;
+    let isConnected = true;
     let address = `${this.connectionService.serverAddress}:${this.connectionService.serverPort}`;
 
     const modal = await this.modalController.create({
