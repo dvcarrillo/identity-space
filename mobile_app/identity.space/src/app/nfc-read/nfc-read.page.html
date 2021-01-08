@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ toolbarTitle }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">
+        {{ toolbarButtonText }}
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="connectionStatus">
+    <ion-icon *ngIf="connectionStatus" color="success" name="checkmark-circle-sharp"></ion-icon>
+    <h5 *ngIf="connectionStatus">Connected to identity.space</h5>
+    <ion-icon *ngIf="!connectionStatus" color="danger" name="cloud-offline-sharp"></ion-icon>
+    <h5 *ngIf="!connectionStatus">Could not reach identity.space</h5>
+  </div>
+
+  <div class="card-stack">
+    <div *ngIf="!connectionStatus" class="card">
+      <ion-icon color="danger" name="close-circle-sharp"></ion-icon> 
+      <p>
+        Please make sure that the server address is correct on Settings.<br>
+        The current address is {{ address }}.
+      </p>
+    </div>
+
+    <div *ngIf="connectionStatus" class="card">
+      <ion-icon color="success" name="checkmark-circle-sharp"></ion-icon> 
+      <p>
+        You are connected to the server on the address {{ address }}.
+      </p>
+    </div>
+  </div>
+</ion-content>

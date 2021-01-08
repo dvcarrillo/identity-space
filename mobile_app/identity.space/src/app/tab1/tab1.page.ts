@@ -1,9 +1,11 @@
 import { ConnectionService } from './../connection.service';
+import { NfcReadPage } from './../nfc-read/nfc-read.page';
 import { HelpPage } from './../help/help.page';
 import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { NFC, Ndef } from '@ionic-native/nfc/ngx';
-
+import { LoadingController } from '@ionic/angular';
+import * as CryptoJS from 'crypto-js';
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
@@ -12,14 +14,62 @@ import { NFC, Ndef } from '@ionic-native/nfc/ngx';
 export class Tab1Page {
 
   constructor(
-    private nfc: NFC, 
+    private nfc: NFC,
     private ndef: Ndef,
-    private connectionService : ConnectionService,
-    public modalController: ModalController
+    private connectionService: ConnectionService,
+    private modalController: ModalController,
+    private loadingController: LoadingController
   ) { }
 
   ionViewDidEnter() {
     // this.readNFC();
+  }
+
+  async showLoading(length: number) {
+    const loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Processing card...',
+      duration: length
+    });
+    await loading.present();
+  }
+
+  async showNFCReadModal(isConnected: boolean, address: string) {
+    const modal = await this.modalController.create({
+      component: NfcReadPage,
+      componentProps: {
+        'connectionStatus': isConnected,
+        'address': address
+      }
+    });
+    modal.present();
+  }
+
+  async simulateNFCScan() {
+    this.showLoading(1800);
+
+    let isConnected = false;
+    let address = `${this.connectionService.serverAddress}:${this.connectionService.serverPort}`;
+    this.connectionService.connect();
+
+    setTimeout(() => {
+      if (this.connectionService.isSocketConnected()) {
+        this.connectionService.sendNfcString(this.generateExampleNFCID());
+        isConnected = true;
+        this.showNFCReadModal(isConnected, address);
+      }
+      else {
+        isConnected = false;
+        this.showNFCReadModal(isConnected, address);
+      }
+    }, 2000);
+  }
+
+  async helpButtonClicked() {
+    const modal = await this.modalController.create({
+      component: HelpPage
+    });
+    modal.present();
   }
 
   async readNFC() {
@@ -31,10 +81,9 @@ export class Tab1Page {
     }
   }
 
-  async helpButtonClicked() {
-    const modal = await this.modalController.create({
-      component: HelpPage
+  generateExampleNFCID():string {
+    return "XX:XX:XX:XX".replace(/X/g, function() {
+      return "0123456789ABCDEF".charAt(Math.floor(Math.random() * 16))
     });
-    modal.present();
   }
 }

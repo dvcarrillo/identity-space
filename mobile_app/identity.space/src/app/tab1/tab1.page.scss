@@ -5,9 +5,11 @@
     z-index: -1;
 }
 
-.bgContainer>svg {
+svg {
     margin: 0 auto;
     display: block;
+    color: red;
+    animation: pulse 6s infinite;
 }
 
 ion-content {
@@ -20,4 +22,19 @@ p {
 
 a {
     text-decoration: none;
+}
+
+@keyframes pulse {
+    0%   { 
+        opacity: 0.4; 
+        transform: scale(0.85);
+    }
+    60%  { 
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% { 
+        opacity: 0.4; 
+        transform: scale(0.85);
+    }
 }

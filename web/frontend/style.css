@@ -2,13 +2,3 @@ body {
     padding: 0;
     margin: 0;
 }
-
-div#full-size-container {
-    height: 80vh;
-    padding: 10vh 10vw;
-    background-color: black;
-}
-
-div#app {
-    height: 100%;
-}
