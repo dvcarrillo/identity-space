@@ -13,7 +13,7 @@
     </ion-toolbar>
   </ion-header>
 
-  <div class="bgContainer">
+  <div class="bgContainer" (click)="simulateNFCScan()">
     <svg width="248px" height="198px" viewBox="0 0 248 198" version="1.1" xmlns="http://www.w3.org/2000/svg"
       xmlns:xlink="http://www.w3.org/1999/xlink">
       <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -36,7 +36,7 @@
     screen to start
     <br><br>
     <a (click)="helpButtonClicked()">Need help?</a> <br><br>
-    <a (click)="readNFC()">Dev - Read NFC</a>
+    <!-- <a (click)="readNFC()">Dev - Read NFC</a> -->
   </p>
   <!-- <app-explore-container name="Tab 1 page"></app-explore-container> -->
 </ion-content>

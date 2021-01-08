@@ -5,6 +5,10 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
+  },
+  {
+    path: 'nfc-read',
+    loadChildren: () => import('./nfc-read/nfc-read.module').then( m => m.NfcReadPageModule)
   }
 ];
 @NgModule({
