@@ -20,6 +20,7 @@
     background-color:rgba(128, 128, 128, 0.15);
     display: flex;
     align-items: center;
+    margin-bottom: 15px;
 }
 
 .card>p {
@@ -31,4 +32,11 @@
     display: inline-block;
     font-size: 55px;
     padding: 10px 20px;
+}
+
+.interaction-button {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    left: 20px;
 }

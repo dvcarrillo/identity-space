@@ -32,5 +32,13 @@
         You are connected to the server on the address {{ address }}.
       </p>
     </div>
+    <div *ngIf="connectionStatus" class="card">
+      <ion-icon color="success" name="checkmark-circle-sharp"></ion-icon> 
+      <p>
+        You can now interact with identity.space using the button below.
+      </p>
+    </div>
   </div>
+
+  <ion-button *ngIf="connectionStatus" class="interaction-button" expand="block" (touchstart)="sendActiveSignalToRing()" (touchend)="sendInactiveSignalToRing()">Hold to send signal</ion-button>
 </ion-content>

@@ -12,6 +12,7 @@ export class NfcReadPage implements OnInit {
   // Data passed in by componentProps
   @Input() connectionStatus: boolean;
   @Input() address: string;
+  @Input() nfcString: string;
 
   // Interface variables
   toolbarTitle = 'Connection error';
@@ -30,6 +31,14 @@ export class NfcReadPage implements OnInit {
   dismiss() {
     this.connectionService.disconnect();
     this.nfcReadPage.dismiss();
+  }
+
+  sendActiveSignalToRing() {
+    this.connectionService.setActiveNfcID(this.nfcString);
+  }
+
+  sendInactiveSignalToRing() {
+    this.connectionService.setInactiveNfcID(this.nfcString);
   }
 
 }
