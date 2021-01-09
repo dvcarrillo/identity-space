@@ -5,7 +5,6 @@ import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { NFC, Ndef } from '@ionic-native/nfc/ngx';
 import { LoadingController } from '@ionic/angular';
-import * as CryptoJS from 'crypto-js';
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
