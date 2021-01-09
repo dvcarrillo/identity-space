@@ -33,11 +33,12 @@ export class NfcReadPage implements OnInit {
     this.nfcReadPage.dismiss();
   }
 
-  sendSignalToRing() {
+  sendActiveSignalToRing() {
     this.connectionService.setActiveNfcID(this.nfcString);
-    setTimeout(() => {
-      this.connectionService.setInactiveNfcID(this.nfcString);
-    }, 3000);
+  }
+
+  sendInactiveSignalToRing() {
+    this.connectionService.setInactiveNfcID(this.nfcString);
   }
 
 }

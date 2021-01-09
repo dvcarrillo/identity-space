@@ -40,5 +40,5 @@
     </div>
   </div>
 
-  <ion-button *ngIf="connectionStatus" class="interaction-button" expand="block" (click)="sendSignalToRing()">Send signal</ion-button>
+  <ion-button *ngIf="connectionStatus" class="interaction-button" expand="block" (touchstart)="sendActiveSignalToRing()" (touchend)="sendInactiveSignalToRing()">Hold to send signal</ion-button>
 </ion-content>
