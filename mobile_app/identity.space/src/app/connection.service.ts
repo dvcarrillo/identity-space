@@ -20,33 +20,25 @@ export class ConnectionService implements OnInit {
 
   public connect() {
     this.socket = io(`http://${this.serverAddress}:${this.serverPort}`);
-    this.socket.on('connect', () => { console.log('Connected to socket: ', this.socket) });
+    this.socket.on('connect', () => { console.info('Connected to socket') });
     // socket.on('event', function (data) { });
-    this.socket.on('disconnect', () => { console.log('Disconnected from socket') });
+    this.socket.on('disconnect', () => { console.info('Disconnected from socket') });
   }
 
   public sendTestString(testString: string) {
-    this.socket.emit('appTest', testString, (data) => {
-      console.log('Received from socket - appTest:', data);
-    });
+    this.socket.emit('appTest', testString, () => {});
   }
 
   public sendNfcString(nfcString: string) {
-    this.socket.emit('nfcID', nfcString, (data) => {
-      console.log('Received from socket - nfcID:', data);
-    });
+    this.socket.emit('nfcID', nfcString, () => {});
   }
 
   public setActiveNfcID(nfcString: string) {
-    this.socket.emit('setActive nfcID', nfcString, (data) => {
-      console.log('Received from socket - setActive nfcID:', data);
-    });
+    this.socket.emit('setActive nfcID', nfcString, () => {});
   }
 
   public setInactiveNfcID(nfcString: string) {
-    this.socket.emit('setInactive nfcID', nfcString, (data) => {
-      console.log('Received from socket - setInactive nfcID:', data);
-    });
+    this.socket.emit('setInactive nfcID', nfcString, () => {});
   }
 
   public isSocketConnected(): boolean {

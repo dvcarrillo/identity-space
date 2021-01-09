@@ -73,14 +73,14 @@ export class Tab1Page {
     modal.present();
   }
 
-  async readNFC() {
-    try {
-      let tag = await this.nfc.scanNdef();
-      console.log(JSON.stringify(tag));
-    } catch (err) {
-      console.log('Error reading tag', err);
-    }
-  }
+  // Unused due to Apple Developer Program restrictions
+  // async readNFC() {
+  //   try {
+  //     let tag = await this.nfc.scanNdef();
+  //   } catch (err) {
+  //     console.log('Error reading tag', err);
+  //   }
+  // }
 
   generateExampleNFCID():string {
     return "XX:XX:XX:XX".replace(/X/g, function() {
