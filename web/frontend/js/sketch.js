@@ -70,40 +70,45 @@ function draw () {
     } = hsb;
     const modulo = frameCount % interval;
     // Shine and trigger sound on setActive, stop at setInactive
-    if (frameCount - currentTag.lastActive < FRAMERATE * 30) { // After 30 seconds of inactivity, trigger every interval
-      if (currentTag.shouldBeActive) {
-        brightness = 100;
-        saturation = 100;
-        if (hasSonification && shouldPlay && !currentTag.currentlyActive) {
-          console.log({
-            message: 'Triggering attack',
-            synth,
-            noteOctave,
-            currentTag,
-          });
-          synth.triggerAttack(noteOctave);
-          window.currentTags[i].currentlyActive = true;
-        }
-      } else if (currentTag.currentlyActive) {
-        brightness = hsb.brightness;
-        saturation = hsb.saturation;
-        if (hasSonification) {
-          console.log({
-            message: 'Triggering release',
-            synth,
-            noteOctave,
-            currentTag,
-          });
-          synth.triggerRelease();
-          window.currentTags[i].currentlyActive = false;
-          window.currentTags[i].lastActive = frameCount;
-        }
+    if (currentTag.shouldBeActive) {
+      brightness = 100;
+      saturation = 100;
+      if (hasSonification && shouldPlay && !currentTag.currentlyActive) {
+        console.log({
+          message: 'Triggering attack',
+          synth,
+          noteOctave,
+          currentTag,
+        });
+        synth.triggerAttack(noteOctave);
+        window.currentTags[i].currentlyActive = true;
+        window.currentTags[i].lastActive = frameCount;
       }
-    // Shine for 10 frames and trigger sound every interval after initial delay
-    } else if (modulo < 15) {
+    } else if (currentTag.currentlyActive) {
+      brightness = hsb.brightness;
+      saturation = hsb.saturation;
+      if (hasSonification) {
+        console.log({
+          message: 'Triggering release',
+          synth,
+          noteOctave,
+          currentTag,
+        });
+        synth.triggerRelease();
+        window.currentTags[i].currentlyActive = false;
+      }
+    }
+    // After 30 seconds of inactivity, trigger every interval
+    if (frameCount - currentTag.lastActive > FRAMERATE * 30 && modulo < 15 && !currentTag.currentlyActive) {
       brightness = 100 - (100 - hsb.brightness) * modulo / 15; // soft release
       saturation = 100;
       if (hasSonification && shouldPlay && modulo === 0) {
+        console.log({
+          message: 'Triggering attack and release',
+          synth,
+          noteOctave,
+          currentTag,
+        });
         synth.triggerAttackRelease(noteOctave, "4n");
       }
     }
