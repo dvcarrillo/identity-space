@@ -3,6 +3,7 @@
 // Source: https://glitch.com/edit/#!/p5-example-rings
 let shouldPlay = false;
 const FRAMERATE = 30;
+const inactivityDelay = 30;
 let playPauseButton;
 
 function setup () {
@@ -101,7 +102,7 @@ function draw () {
       }
     }
     // After 30 seconds of inactivity, trigger every interval
-    if (frameCount - currentTag.lastActive > FRAMERATE * 30 && modulo < 15 && !currentTag.currentlyActive) {
+    if (frameCount - currentTag.lastActive > FRAMERATE * inactivityDelay && modulo < 15 && !currentTag.currentlyActive) {
       brightness = 100 - (100 - hsb.brightness) * modulo / 15; // soft release
       saturation = 100;
       if (hasSonification && shouldPlay && modulo === 0) {
@@ -136,7 +137,7 @@ function createRings() {
     const arcAngle = PI * (parameters[0] * 4 / 255 - 2); // float between -PI * 2 and PI * 2
     const spinSpeed = parameters[0] * 2 / 255 - 1; // float between -1 and 1
     const hsb = {
-      hue: floor(parameters[1] * 360 / 255), // int between 0 and 360
+      hue: floor(parameters[1] * (360 - 0) / 255 + 0), // int between 0 and 360
       saturation: floor(parameters[2] * (95 - 80) / 255 + 80), // int between 80 and 95
       brightness: floor(parameters[3] * (90 - 70) / 255 + 70), // int between 70 and 90
     };
