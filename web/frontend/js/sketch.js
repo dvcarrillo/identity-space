@@ -3,15 +3,16 @@
 // Source: https://glitch.com/edit/#!/p5-example-rings
 let shouldPlay = false;
 const FRAMERATE = 30;
+let playPauseButton;
 
 function setup () {
   createCanvas(windowWidth, windowHeight);
 
   frameRate(FRAMERATE);
 
-  button = createButton('Play/Pause');
-  button.position(0, 0);
-  button.mousePressed(togglePlay);
+  playPauseButton = createButton('Play');
+  playPauseButton.position(0, 0);
+  playPauseButton.mousePressed(togglePlay);
 }
 
 async function togglePlay() {
@@ -19,6 +20,7 @@ async function togglePlay() {
   console.log("context started");
 
   shouldPlay = !shouldPlay;
+  playPauseButton.html(`${shouldPlay ? 'Stop' : 'Play'}`);
   console.log(`${shouldPlay ? 'playing' : 'stopped'} sounds`);
 }
 
