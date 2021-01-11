@@ -25,42 +25,31 @@ const sendRandomNFCID = () => {
         }
     });
 }
-
-// Send some NFC IDs
-for (let i=0; i<4; i++) {
-    setTimeout(sendRandomNFCID, i*2000);
-}
-
-// Trigger active or inactive for random NFC ID every couple seconds
-// setInterval(() => {
-//     console.log("determining nfcID");
-//     const randomNFCID = nfcIDs[Math.floor(Math.random()*nfcIDs.length)];
-//     const willSetActive = Math.random() < 0.5; // random boolean
-//     console.log(`determined to ${willSetActive ? "setActive" : "setInactive"}`);
+const toggleActive = () => {
+    console.log("determining nfcID");
+    const randomNFCID = nfcIDs[Math.floor(Math.random()*nfcIDs.length)];
+    const willSetActive = Math.random() < 0.5; // random boolean
+    console.log(`determined to ${willSetActive ? "setActive" : "setInactive"}`);
     
-//     if (willSetActive) {
-//         console.log(`requesting setActive of NFC ID: ${randomNFCID}`);
-//         socket.emit("setActive nfcID", randomNFCID, (response) => {
-//             if (response.status == "ok") {
-//                 console.log(`acknowledged setActive of NFC ID: ${response.acknowledgedNFCID}`);
-//             }
-//         });
-//     }
+    if (willSetActive) {
+        console.log(`requesting setActive of NFC ID: ${randomNFCID}`);
+        socket.emit("setActive nfcID", randomNFCID, (response) => {
+            if (response.status == "ok") {
+                console.log(`acknowledged setActive of NFC ID: ${response.acknowledgedNFCID}`);
+            }
+        });
+    }
 
-//     if (!willSetActive) {
-//         console.log(`requesting setInactive of NFC ID: ${randomNFCID}`);
-//         socket.emit("setInactive nfcID", randomNFCID, (response) => {
-//             if (response.status == "ok") {
-//                 console.log(`acknowledged setInactive of NFC ID: ${response.acknowledgedNFCID}`);
-//             }
-//         });
-//     }
-
-    
-// }, 3000);
-
-// Send or remove NFC ID every couple seconds
-setInterval(() => {
+    if (!willSetActive) {
+        console.log(`requesting setInactive of NFC ID: ${randomNFCID}`);
+        socket.emit("setInactive nfcID", randomNFCID, (response) => {
+            if (response.status == "ok") {
+                console.log(`acknowledged setInactive of NFC ID: ${response.acknowledgedNFCID}`);
+            }
+        });
+    }
+};
+const addOrRemoveNFCID = () => {
     console.log("determining whether to send or remove");
     const willSend = Math.random() < 0.75; // random boolean (slightly skewed)
     console.log(`determined to ${willSend ? "send" : "remove"}`);
@@ -82,7 +71,16 @@ setInterval(() => {
                 nfcIDs.pop();
             }
         });
-    }
+    }   
+};
 
-    
-}, 10000);
+// Send some NFC IDs
+for (let i=0; i<7; i++) {
+    setTimeout(sendRandomNFCID, i*2000);
+}
+
+// Trigger active or inactive for random NFC ID every couple seconds
+// setInterval(toggleActive, 3000);
+
+// Send or remove NFC ID every couple seconds
+// setInterval(addOrRemoveNFCID, 10000);
